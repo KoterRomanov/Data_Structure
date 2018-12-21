@@ -27,7 +27,7 @@ void RedBlackBST::put( Key key, Val val )
 	m_root = put( m_root, key, val );
 }
 
-//Ìí¼ÓÐÂ¼ü
+//æ·»åŠ æ–°é”®
 RedBlackBST::Node* RedBlackBST::put( Node *node, Key key, Val val )
 {
 	if( NULL == node ) return new Node( key, val, 1, RED );
@@ -36,7 +36,7 @@ RedBlackBST::Node* RedBlackBST::put( Node *node, Key key, Val val )
 	else if( key > node->n_key )	node->n_right	= put( node->n_right, key, val );
 	else							node->n_val		= val;
 
-	//´¦ÀíÐý×ªºÍÑÕÉ«×ª»»
+	//å¤„ç†æ—‹è½¬å’Œé¢œè‰²è½¬æ¢
 	if( isRed( node->n_right ) && !isRed( node->n_left ) )			node = rotateLeft( node );
 	if( isRed( node->n_left )  && isRed( node->n_left->n_left ) )	node = rotateRight( node );
 	if( isRed( node->n_left )  && isRed( node->n_right ) )			flipColor( node );
@@ -45,14 +45,14 @@ RedBlackBST::Node* RedBlackBST::put( Node *node, Key key, Val val )
 	return node;
 }
 
-//¼ì²â½ÚµãÑÕÉ«
+//æ£€æµ‹èŠ‚ç‚¹é¢œè‰²
 bool RedBlackBST::isRed( Node *node )
 {
 	if( NULL == node ) return false;
 	return node->n_color;
 }
 
-//×óÐý×ª
+//å·¦æ—‹è½¬
 RedBlackBST::Node* RedBlackBST::rotateLeft( Node *node )
 {
 	Node *right			= node->n_right;
@@ -67,7 +67,7 @@ RedBlackBST::Node* RedBlackBST::rotateLeft( Node *node )
 	return right;
 }
 
-//ÓÒÐý×ª
+//å³æ—‹è½¬
 RedBlackBST::Node* RedBlackBST::rotateRight( Node *node )
 { 
 	Node *left		= node->n_left;
@@ -77,10 +77,10 @@ RedBlackBST::Node* RedBlackBST::rotateRight( Node *node )
 	node->n_color	= RED;
 	left->n_counter = node->n_counter;
 	node->n_counter = size( node->n_left ) + size( node->n_right ) + 1;
-	return node;
+	return left;
 }
 
-//ÑÕÉ«×ª»»
+//é¢œè‰²è½¬æ¢
 void RedBlackBST::flipColor( Node *node )
 {
 	node->n_color	= RED;
