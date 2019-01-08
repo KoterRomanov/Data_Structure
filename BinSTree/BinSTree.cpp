@@ -117,3 +117,49 @@ Node* BinSTree::deletMin( Node *node )
   
   return node;
 }
+
+//前序遍历
+void BinSTree::DLRPrint()
+{
+  DLRPrint( m_root );  
+}
+
+//前序遍历
+void BinSTree::DLRPrint( Node *node )
+{
+  if( NULL == node )  return;
+  printf( "Key:%d Val:%d", node->m_key, node->m_val );
+  DLRPrint( node->m_left );
+  DLRPrint( node->m_right );
+}
+
+//中序遍历
+void BinSTree::LDRPrint()
+{
+  LDRPrint( m_root );
+}
+
+//中序遍历
+void BinSTree::LDRPrint( Node *node )
+{
+  if( NULL == node )  return;
+  LDRPrint( node->m_left );
+  printf( "Key:%d Val:%d", node->m_key, node->m_val );
+  LDRPrint( node->m_right );
+}
+
+//后序遍历
+void BinSTree::LRDPrint()
+{
+  LRDPrint( m_root );
+}
+
+//后序遍历
+void BinSTree::LRDPrint( Node *node )
+{
+  if( NULL == node )  return;
+  
+  LRDPrint( node->m_left );
+  LRDPrint( node->m_right );
+  printf( "Key:%d Val:%d", node->m_key, node->m_val );
+}
