@@ -23,6 +23,9 @@ public:
   int get( int key );
   void put( int key, int val );
   void delet( int key );
+  void DLRPrint();//前序遍历
+  void LDRPrint();//中序遍历
+  void LRDPrint();//后序遍历
   
 private:
   void free( Node *node );
@@ -30,6 +33,10 @@ private:
   Node* put( Node *node, int key, int val );
   Node* min( Node *node );
   Node* deletMin( Node *node );
+  
+  void DLRPrint( Node *node );//前序遍历
+  void LDRPrint( Node *node );//中序遍历
+  void LRDPrint( Node *node );//后序遍历
   
 private:
   Node *m_root;
