@@ -1,8 +1,8 @@
 #include "BinSTree.h"
 
 BinSTree::BinSTree()
+	:m_root(NULL)
 {
-  
 }
 
 BinSTree::~BinSTree()
@@ -48,9 +48,9 @@ Node* BinSTree::put( Node *node, int key, int val )
 {
     if ( NULL == node ) return new Node( key, val );
   
-    if( key > node->m_key )       node->m_right = put( node, key, val );
-    else if( key < node->m_key )  node->left = put( node, key, val );
-    else                          node->val = val;
+	if( key > node->m_key )       node->m_right = put( node->m_right, key, val );
+	else if( key < node->m_key )  node->m_left = put( node->m_left, key, val );
+    else                          node->m_val = val;
   
     return node;
 }
@@ -92,7 +92,7 @@ Node* BinSTree::delet( Node *node, int key )
     //4.左、右结点都存在
     Node *tmp = node;
     node = min( tmp->m_right );//找到右子结点中最小结点
-    node->m_rigth = deletMin( tmp->m_right );//连接右结点
+    node->m_right = deletMin( tmp->m_right );//连接右结点
     node->m_left = tmp->m_left;//连接左结点
     delete tmp;
     tmp = NULL;
@@ -128,7 +128,7 @@ void BinSTree::DLRPrint()
 void BinSTree::DLRPrint( Node *node )
 {
   if( NULL == node )  return;
-  printf( "Key:%d Val:%d", node->m_key, node->m_val );
+  printf( "Key:%d Val:%d\n", node->m_key, node->m_val );
   DLRPrint( node->m_left );
   DLRPrint( node->m_right );
 }
@@ -144,7 +144,7 @@ void BinSTree::LDRPrint( Node *node )
 {
   if( NULL == node )  return;
   LDRPrint( node->m_left );
-  printf( "Key:%d Val:%d", node->m_key, node->m_val );
+  printf( "Key:%d Val:%d\n", node->m_key, node->m_val );
   LDRPrint( node->m_right );
 }
 
@@ -161,5 +161,21 @@ void BinSTree::LRDPrint( Node *node )
   
   LRDPrint( node->m_left );
   LRDPrint( node->m_right );
-  printf( "Key:%d Val:%d", node->m_key, node->m_val );
+  printf( "Key:%d Val:%d\n", node->m_key, node->m_val );
+}
+
+//计算树的高度
+int BinSTree::treeDepth()
+{
+	return treeDepth( m_root );
+}
+
+int BinSTree::treeDepth( Node *node )
+{
+	if ( NULL == node )	return 0;
+	
+	int leftDepth = treeDepth( node->m_left );
+	int rightDepth = treeDepth( node->m_right );
+
+	return ( leftDepth > rightDepth )? (leftDepth+1):(rightDepth+1);
 }
