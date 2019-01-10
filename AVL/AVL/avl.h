@@ -1,6 +1,10 @@
 #ifndef AVL_H
 #define AVL_H
 
+/*******************************************************
+                      平衡二叉树
+*******************************************************/
+
 #include <iostream>
 #include <string>
 
@@ -24,41 +28,34 @@ class RedBlackBST
 			n_val		= val;
 			n_left		= NULL;
 			n_right		= NULL;
-			n_color		= color;
-			n_counter	= counter;
+			n_degree	= 0;
 		}
 	public:
-		Key n_key;
-		Val n_val;
-		Node *n_left, *n_right;
-		bool n_color;
-		int n_counter;
+		Key n_key;//node key
+		Val n_val;//nodde value
+		Node *n_left, *n_right;//left and right child
+		int n_degree;//node degree
 	};
 
 public:
 	RedBlackBST();
 	~RedBlackBST();
 
-	void put( Key key, Val val );
-	int size();
-	void print();
-
+	void insertNode( Key key, Val val );
+	void deleteNode( Key key );
+	
 private:
-	void free( Node *node );
-	bool isRed( Node *node );
-	Node* put( Node *node, Key key, Val val );
-
-	Node* rotateLeft( Node *node );
-	Node* rotateRight( Node *node );
-	void flipColor( Node *node );
-	int size( Node *node );
-	void print( Node *node );
-
+	Node* leftLeftRotate( Node *node );//LL
+	Node* rightRightRotate( Node *node );//RR
+	Node* leftRightRotate( Node *node );//LR
+	Node* rightLeftRotate( Node *node );//RL
+	
+	Node *insert( Node *node, Key key, Val val );
+	Node *delet( Node *node, Key key );
+	
+	void print( Node *node );//print tree
+	void free( Node *node );//free tree
 private:
-	Node *m_root;
-
+	Node *m_root;//root node
 };
-
-
-
 #endif //AVL_H
