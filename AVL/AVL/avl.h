@@ -20,7 +20,7 @@ class AVLTree
 	class Node
 	{
 	public:
-		Node( Key key, Val val, int counter, bool color )
+		Node( Key key, Val val )
 		{
 			n_key		= key;
 			n_val		= val;
