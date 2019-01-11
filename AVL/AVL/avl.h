@@ -17,7 +17,7 @@ typedef string Val;
 const bool RED = 1;
 const bool BLACK = 0;
 
-class RedBlackBST
+class AVLTree
 {
 	class Node
 	{
@@ -38,8 +38,8 @@ class RedBlackBST
 	};
 
 public:
-	RedBlackBST();
-	~RedBlackBST();
+	AVLTree();
+	~AVLTree();
 
 	void insertNode( Key key, Val val );
 	void deleteNode( Key key );
