@@ -14,7 +14,7 @@ AVLTree::~AVLTree()
 }
 
 //释放树占用的内存空间
-void free( Node *node )
+void AVLTree::free( Node *node )
 {
     if( NULL == node )  return;
     free( node->n_left );
@@ -35,7 +35,7 @@ int AVLTree::degree( Node *node )
 }
 
 //左旋转
-Node* AVLTree::leftRotate( Node *node )
+AVLTree::Node* AVLTree::leftRotate( Node *node )
 {
     Node *tmp = node->n_right;
     node->n_right = tmp->n_left;
@@ -48,7 +48,7 @@ Node* AVLTree::leftRotate( Node *node )
 }
 
 //右旋转
-Node* AVLTree::rightRotate( Node *node )
+AVLTree::Node* AVLTree::rightRotate( Node *node )
 {
     Node *tmp = node->n_left;
     node->n_left = tmp->n_right;
@@ -61,26 +61,26 @@ Node* AVLTree::rightRotate( Node *node )
 }
 
 //LL
-Node* AVLTree::leftLeftRotate( Node *node )
+AVLTree::Node* AVLTree::leftLeftRotate( Node *node )
 {
     return rightRotate( node );
 }
 
 //RR
-Node* AVLTree::rightRightRotate( Node *node )
+AVLTree::Node* AVLTree::rightRightRotate( Node *node )
 {
     return leftRotate( node );
 }
 
 //LR
-Node* AVLTree::leftRightRotate( Node *node )
+AVLTree::Node* AVLTree::leftRightRotate( Node *node )
 {
     node->n_left = leftRotate( node->n_left );
     return rightRotate( node );
 }
 
 //RL
-Node* AVLTree::rightLeftRotate( Node *node )
+AVLTree::Node* AVLTree::rightLeftRotate( Node *node )
 {
     node->n_right = rightRotate( node->n_right );
     return leftRotate( node );
@@ -99,21 +99,21 @@ void AVLTree::deleteNode( Key key )
 }
 
 //获取node子树中键最大结点
-Node* minNode( Node *node )
+AVLTree::Node* AVLTree::minNode( Node *node )
 {
     if( NULL == node->n_left )  return node;
     return minNode( node->n_left );
 }
 
 //获取node子树中键最小结点
-Node* maxNode( Node *node )
+AVLTree::Node* AVLTree::maxNode( Node *node )
 {
     if( NULL == node->n_right ) return node;
     return maxNode( node->n_right );
 }
 
 //添加结点
-Node* AVLTree::insert( Node *node, int key, int val )
+Node* AVLTree::insert( Node *node, Key key, Val val )
 {
     if( NULL == node )  return new Node( key, val );
     
@@ -135,7 +135,7 @@ Node* AVLTree::insert( Node *node, int key, int val )
     else if( key > node->n_key ) {
         //插入右子树
         node->n_right = insert( node->n_right, key, val );
-        if( degree(node->n_right) - degree(node->n_left == 2) {
+        if( degree(node->n_right) - degree(node->n_left ) == 2 ) {
             //右树失衡
             if( degree(node->n_right->n_right) > degree(node->n_right->n_left) ) {
                 //RR
@@ -152,12 +152,12 @@ Node* AVLTree::insert( Node *node, int key, int val )
         node->n_val = val;
     }
     
-    node->degree = degree( node );
+    node->n_degree = degree( node );
     return node;         
 }
 
 //删除结点
-Node* AVLTree::delet( Node *node, Key key )
+AVLTree::Node* AVLTree::delet( Node *node, Key key )
 {
     if( NULL == node )  return NULL;
     if( key < node->n_key ) {
@@ -194,7 +194,7 @@ Node* AVLTree::delet( Node *node, Key key )
                                   //反之,则查找右子树中键最小结点替换待删除结点位置。始终删除结点多的一边）
         if( NULL != node->n_left && NULL != node->n_right ) {
             //situation 4
-            if( node->n_left->n_degree > node->n_right_n_degree ) {
+            if( node->n_left->n_degree > node->n_right->n_degree ) {
                 //待删除结点左子树高于右子树
                 Node *max = maxNode( node->n_left );
                 node->n_key = max->n_key;
