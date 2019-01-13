@@ -113,7 +113,7 @@ AVLTree::Node* AVLTree::maxNode( Node *node )
 }
 
 //添加结点
-Node* AVLTree::insert( Node *node, Key key, Val val )
+AVLTree::Node* AVLTree::insert( Node *node, Key key, Val val )
 {
     if( NULL == node )  return new Node( key, val );
     
@@ -138,7 +138,7 @@ Node* AVLTree::insert( Node *node, Key key, Val val )
         if( degree(node->n_right) - degree(node->n_left ) == 2 ) {
             //右树失衡
             if( degree(node->n_right->n_right) > degree(node->n_right->n_left) ) {
-                //RR
+				//RR
                 rightRightRotate( node );
             }
             else {
