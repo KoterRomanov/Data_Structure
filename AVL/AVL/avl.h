@@ -26,7 +26,7 @@ class AVLTree
 			n_val		= val;
 			n_left		= NULL;
 			n_right		= NULL;
-			n_degree	= 0;
+			n_degree	= 1;
 		}
 		
 	public:
