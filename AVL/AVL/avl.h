@@ -58,7 +58,8 @@ private:
 	Node *delet( Node *node, Key key );//删除键为key的结点
 	
 	Val getNode( Node *node, Key key );//获取结点值
-	int degree( Node *node );//计算node结点的度
+	int calDegree( Node *node );//计算node结点的高度
+	int getDegree( Node *node );//获取node结点的高度
 	void free( Node *node );//释放树占用内存空间
 	
 	void DLROrder( Node *node );//前序遍历
