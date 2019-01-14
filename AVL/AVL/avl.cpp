@@ -24,7 +24,7 @@ void AVLTree::free( Node *node )
     node = NULL;
 }
 
-//计算结点的度
+//计算结点的高度
 int AVLTree::degree( Node *node )
 {
     if( NULL == node ) return 0;
@@ -120,30 +120,32 @@ AVLTree::Node* AVLTree::insert( Node *node, Key key, Val val )
     if( key < node->n_key ) {
         //插入左子树
         node->n_left = insert( node->n_left, key, val );
+	node->n_degree = degree( node );
         if( degree(node->n_left) - degree(node->n_right) == 2 ) { 
             //左树失衡
-            if( degree(node->n_left->n_left) > degree(node->n_left->n_right) ) {
+            if( key < node->n_left->n_key ) {
                 //LL
-                leftLeftRotate( node );
+                node = leftLeftRotate( node );
             }
             else {
                 //LR
-                leftRightRotate( node );
+                node = leftRightRotate( node );
             }
         }
     }
     else if( key > node->n_key ) {
         //插入右子树
         node->n_right = insert( node->n_right, key, val );
+	node->n_degree = degree( node );
         if( degree(node->n_right) - degree(node->n_left ) == 2 ) {
             //右树失衡
-            if( degree(node->n_right->n_right) > degree(node->n_right->n_left) ) {
-				//RR
-                rightRightRotate( node );
+            if( key > node->n_right->n_key ) {
+		//RR
+                node = rightRightRotate( node );
             }
             else {
                 //RL
-                rightLeftRotate( node );
+                node = rightLeftRotate( node );
             }
         }
     }
@@ -152,7 +154,6 @@ AVLTree::Node* AVLTree::insert( Node *node, Key key, Val val )
         node->n_val = val;
     }
     
-    node->n_degree = degree( node );
     return node;         
 }
 
