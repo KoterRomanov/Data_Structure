@@ -6,9 +6,10 @@
 typedef int Key;
 typedef int Val;
 
-enum COLOR { RED, BLACK };
+const bool BLACK = 0;
+const bool RED   = 1;
 
-//�����
+//结点类
 class Node
 {
 public:
@@ -21,29 +22,43 @@ public:
 	}
 
 public:
-	Key n_key;//��
-	Val n_val;//ֵ
-	COLOR n_color;//��ɫ
-	Node *n_left, *n_right;//�����ӽ��
-	Node *n_parent;//���ڵ�
+	Key n_key;//键
+	Val n_val;//值
+	bool n_color;//颜色
+	Node *n_left, *n_right;//左右子结点
 };
 
-//�������
+//红黑树类
 class RedBlackTree
 {
 public:
 	RedBlackTree();
 	~RedBlackTree();
 
-	void insertNode( Key key, Val val );//�����½��
+	void insertNode( Key key, Val val );//插入新结点
+	void deletNode( Key key );//删除键值为key的结点
+	Val getNode( Key key );//获取键值为key的结点的值
+	void deletMinNode();//删除键值最小结点
+	void deletMaxNode();//删除键值最大结点
 
 private:
-	Node* rotateLeft( Node *node );//����ת
-	Node* rotateRight( Node *node );//����ת
+	Node* insert( Node *node, Key key, Val val );//插入新结点
+	Node* delet( Node *node, Key key );//删除给定键值结点
+	Val get( Node *node, Key key );//获取给定键值结点
+	
+	Node* deletMin( Node *node );//删除给定结点子树键值最小结点
+	Node* deletMax( Node *node );//删除给定结点子树键值最大结点
+	Node* rotateLeft( Node *node );//左旋转
+	Node* rotateRight( Node *node );//右旋转
+	Node* moveRedLeft( Node *node );
+	Node* moveRedRight( Node *node );
+	Node* balance( Node *node );//平衡给定子树
+	Node* min( Node *node );//获取给定结点子树中键值最小结点
+	bool isRed( Node *node );//结点颜色是否为红色
+	void flipColor( Node *node );//颜色转换
+	
 
-	Node* insert( Node *node, Key key, Val val );//�����½��
-
-	void free( Node *node );//�ͷ���ռ���ڴ�ռ�
+	void free( Node *node );//释放树占用内存空间
 
 private:
 	Node *m_root;
